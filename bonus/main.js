@@ -18,7 +18,7 @@ const usersPost = [
     {
         id: 2,
         name: 'Andrea Rossi',
-        profilePic: 'https://unsplash.it/300/300?image=2',
+        profilePic: null,
         date: '06/02/2021',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias',
         image: 'https://unsplash.it/300/300?image=13',
@@ -44,7 +44,7 @@ drawAllUsersPost(usersPost);
 function drawAllUsersPost(usersPostArray) {
     // Creo costante del container dove incorporo i singoli post
     const postsContainer = document.querySelector('#container');
-    postsContainer.innerHTML = '';
+    // postsContainer.innerHTML = '';
     
     // Scrollo ogni singolo elemento dell'array 
     for(let i = 0; i < usersPostArray.length; i++) {
@@ -56,9 +56,7 @@ function drawAllUsersPost(usersPostArray) {
         <div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="${profilePic}" alt="Phil Mangione">                    
-                    </div>
+                    ${getProfilePicHtml(profilePic, name)}
                     <div class="post-meta__data">
                         <div class="post-meta__author">${name}</div>
                         <div class="post-meta__time">${date}</div>
@@ -88,12 +86,41 @@ function drawAllUsersPost(usersPostArray) {
     }
 }
 
-function getImagePostHtml (imagePost) {
+function getImagePostHtml(imagePost) {
     return `
     <div class="post__image">
         <img src="${imagePost}" alt="image">
     </div>
     `;
+}
+
+// BONUS 2
+function getProfilePicHtml(profilePicPost, name) {
+    if(profilePicPost !== null) {
+        return `
+        <div class="post-meta__icon">
+           <img class="profile-pic" src="${profilePicPost}" alt="Phil Mangione">                    
+        </div>
+        `  
+    } else {
+        return `
+        <div class="post-meta__icon">
+            <div class="profile-pic-default">${getInitialsProfile(name)}</div>                  
+        </div>
+        `  
+    }
+}
+
+function getInitialsProfile(name) {
+    const userNameArray = name.split(' ');
+
+    let nameInitials = '';
+    // Scrollo le iniziali degli elementi dell'array dei nomi
+    for(let i = 0; i < userNameArray.length; i++) {
+        nameInitials += userNameArray[i][0];
+    }
+
+    return nameInitials;
 }
 
 // MILESTONE 3
