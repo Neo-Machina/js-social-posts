@@ -44,7 +44,7 @@ drawAllUsersPost(usersPost);
 function drawAllUsersPost(usersPostArray) {
     // Creo costante del container dove incorporo i singoli post
     const postsContainer = document.querySelector('#container');
-    // postsContainer.innerHTML = '';
+    postsContainer.innerHTML = '';
     
     // Scrollo ogni singolo elemento dell'array 
     for(let i = 0; i < usersPostArray.length; i++) {
@@ -84,6 +84,49 @@ function drawAllUsersPost(usersPostArray) {
         // Aggiungo ogni userPostTemplate a postsContainer
         postsContainer.innerHTML += userPostTemplate;
     }
+
+    // MILESTONE 3
+    const allLikeClickable = document.querySelectorAll('.js-like-button');
+    const allLikesCounter = document.querySelectorAll('.js-likes-counter');
+    for(let i = 0; i < allLikeClickable.length; i++) {
+        const singleLikeBtn = allLikeClickable[i];
+        singleLikeBtn.addEventListener('click', function(event) {
+            // Evitiamo il comportamento di default del browser
+            event.preventDefault();
+
+            // Incrementiamo il like solo se l'elemento su cui ho cliccato non ha gia classe clicked
+            if(!this.classList.contains('clicked')) {
+                // Aggiungo all'elemento cliccato la classe 'clicked'
+                this.classList.add('clicked');
+                // Aggiungo una classe al btn per cambiare colore
+                singleLikeBtn.classList.add('like-button--liked');
+                // Prendo l'elemento html di testo che ha il numero relativo al btn
+                const relatedNumberLikesText = allLikesCounter[i];
+                // Prendo il numero dentro relatedNumberLikesText
+                let relatedNumberLikes = parseInt(relatedNumberLikesText.innerHTML);
+                console.log(relatedNumberLikes);
+                // Incremento di 1 relatedNumberLikes
+                relatedNumberLikes++;
+                // Scrivo il numero incrementato dentro relatedNumberLikesText
+                relatedNumberLikesText.innerHTML = relatedNumberLikes;
+            // BONUS 3
+            } else {
+                // Rimuovo all'elemento cliccato la classe 'clicked'
+                this.classList.remove('clicked');
+                // Aggiungo una classe al btn per cambiare colore
+                singleLikeBtn.classList.remove('like-button--liked');
+                // Prendo l'elemento html di testo che ha il numero relativo al btn
+                const relatedNumberLikesText = allLikesCounter[i];
+                // Prendo il numero dentro relatedNumberLikesText
+                let relatedNumberLikes = parseInt(relatedNumberLikesText.innerHTML);
+                console.log(relatedNumberLikes);
+                // Incremento di 1 relatedNumberLikes
+                relatedNumberLikes--;
+                // Scrivo il numero incrementato dentro relatedNumberLikesText
+                relatedNumberLikesText.innerHTML = relatedNumberLikes;
+            }
+        });
+    }
 }
 
 function getImagePostHtml(imagePost) {
@@ -121,34 +164,6 @@ function getInitialsProfile(name) {
     }
 
     return nameInitials;
-}
-
-// MILESTONE 3
-const allLikeClickable = document.querySelectorAll('.js-like-button');
-const allLikesCounter = document.querySelectorAll('.js-likes-counter');
-for(let i = 0; i < allLikeClickable.length; i++) {
-    const singleLikeBtn = allLikeClickable[i];
-    singleLikeBtn.addEventListener('click', function(event) {
-        // Evitiamo il comportamento di default del browser
-        event.preventDefault();
-        // Aggiungo una classe al btn per cambiare colore
-        singleLikeBtn.classList.add('like-button--liked');
-
-        // Incrementiamo il like solo se l'elemento su cui ho cliccato non ha gia classe clicked
-        if(!this.classList.contains('clicked')) {
-            // Aggiungo all'elemento cliccato la classe 'clicked'
-            this.classList.add('clicked');
-            // Prendo l'elemento html di testo che ha il numero relativo al btn
-            const relatedNumberLikesText = allLikesCounter[i];
-            // Prendo il numero dentro relatedNumberLikesText
-            let relatedNumberLikes = parseInt(relatedNumberLikesText.innerHTML);
-            console.log(relatedNumberLikes);
-            // Incremento di 1 relatedNumberLikes
-            relatedNumberLikes++;
-            // Scrivo il numero incrementato dentro relatedNumberLikesText
-            relatedNumberLikesText.innerHTML = relatedNumberLikes;
-        }
-    });
 }
 
 // BONUS 1
