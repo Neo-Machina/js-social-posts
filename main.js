@@ -44,6 +44,7 @@ const usersPost = [
     }
 ];
 
+// Parte all'avvio della pagina
 drawAllUsersPost(usersPost);
 
 // MILESTONE 2
@@ -95,7 +96,6 @@ function drawAllUsersPost(usersPostArray) {
     }
 }
 
-
 function getImagePostHtml (imagePost) {
     return `
     <div class="post__image">
@@ -103,3 +103,32 @@ function getImagePostHtml (imagePost) {
     </div>
     `;
 }
+
+// MILESTONE 3
+const allLikeClickable = document.querySelectorAll('.js-like-button');
+const allLikesCounter = document.querySelectorAll('.js-likes-counter');
+for(let i = 0; i < allLikeClickable.length; i++) {
+    const singleLikeBtn = allLikeClickable[i];
+    singleLikeBtn.addEventListener('click', function(event) {
+        // Evitiamo il comportamento di default del browser
+        event.preventDefault();
+        // Aggiungo una classe al btn per cambiare colore
+        singleLikeBtn.classList.add('like-button--liked');
+
+        // Incrementiamo il like solo se l'elemento su cui ho cliccato non ha gia classe clicked
+        if(!this.classList.contains('clicked')) {
+            // Aggiungo all'elemento cliccato la classe 'clicked'
+            this.classList.add('clicked');
+            // Prendo l'elemento html di testo che ha il numero relativo al btn
+            const relatedNumberLikesText = allLikesCounter[i];
+            // Prendo il numero dentro relatedNumberLikesText
+            let relatedNumberLikes = parseInt(relatedNumberLikesText.innerHTML);
+            console.log(relatedNumberLikes);
+            // Incremento di 1 relatedNumberLikes
+            relatedNumberLikes++;
+            // Scrivo il numero incrementato dentro relatedNumberLikesText
+            relatedNumberLikesText.innerHTML = relatedNumberLikes;
+        }
+    });
+}
+
