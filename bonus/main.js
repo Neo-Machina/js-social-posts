@@ -74,7 +74,7 @@ function drawAllUsersPost(usersPostArray) {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-${id}">" class="js-likes-counter">${likes}</b> persone
+                        Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
                     </div>
                 </div> 
             </div>            
