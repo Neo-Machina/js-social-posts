@@ -167,11 +167,7 @@ function getInitialsProfile(name) {
 }
 
 // BONUS 1
-// const mounth = date.substring(0, 2);
-// const day = date.substring(3, 5);
-// const year = date.substring(6, 10);
 formatDate();
-// const formattedDate = day + '/' + mounth + '/' + year;
 function formatDate() {
     for(let i = 0; i < usersPost.length; i++) {
         let dateSingleUsersPost = usersPost[i].date;
